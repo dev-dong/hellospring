@@ -1,4 +1,6 @@
-package dongspring.hellospring;
+package dongspring.hellospring.exrate;
+
+import dongspring.hellospring.payment.ExRateProvider;
 
 import java.io.IOException;
 import java.math.BigDecimal;

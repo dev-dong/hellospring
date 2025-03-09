@@ -1,6 +1,7 @@
-package dongspring.hellospring;
+package dongspring.hellospring.exrate;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import dongspring.hellospring.payment.ExRateProvider;
 import org.springframework.stereotype.Component;
 
 import java.io.BufferedReader;

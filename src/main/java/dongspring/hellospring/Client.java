@@ -1,5 +1,7 @@
 package dongspring.hellospring;
 
+import dongspring.hellospring.payment.Payment;
+import dongspring.hellospring.payment.PaymentService;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 

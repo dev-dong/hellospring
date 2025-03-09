@@ -1,4 +1,4 @@
-package dongspring.hellospring;
+package dongspring.hellospring.payment;
 
 import org.springframework.stereotype.Component;
 

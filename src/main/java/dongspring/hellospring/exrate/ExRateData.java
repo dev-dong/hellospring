@@ -1,4 +1,4 @@
-package dongspring.hellospring;
+package dongspring.hellospring.exrate;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
