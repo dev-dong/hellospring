@@ -2,10 +2,11 @@ package dongspring.hellospring;
 
 import dongspring.hellospring.data.OrderRepository;
 import dongspring.hellospring.order.Order;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.transaction.support.TransactionTemplate;
 
 import java.math.BigDecimal;
 
@@ -13,14 +14,23 @@ public class DataClient {
     public static void main(String[] args) {
         BeanFactory beanFactory = new AnnotationConfigApplicationContext(DataConfig.class);
         OrderRepository repository = beanFactory.getBean(OrderRepository.class);
+        JpaTransactionManager transactionManager = beanFactory.getBean(JpaTransactionManager.class);
 
-        // em.persist - 영속화
-        Order order = new Order("100", BigDecimal.TEN);
-        repository.save(order);
-        System.out.println(order);
+        try {
+            // em.persist - 영속화
+            // transaction begin
+            new TransactionTemplate(transactionManager).execute(status -> {
+                Order order = new Order("100", BigDecimal.TEN);
+                repository.save(order);
 
-        Order order2 = new Order("100", BigDecimal.ONE);
-        repository.save(order2);
-        System.out.println(order2);
+                Order order2 = new Order("100", BigDecimal.ONE);
+                repository.save(order2);
+
+                return null;
+            });
+        } catch (DataIntegrityViolationException e) {
+            System.out.println("주문번호 중복 복구 작업");
+        }
+        // commit
     }
 }
