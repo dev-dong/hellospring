@@ -1,5 +1,6 @@
 package dongspring.hellospring;
 
+import dongspring.hellospring.data.OrderRepository;
 import dongspring.hellospring.order.Order;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -11,19 +12,15 @@ import java.math.BigDecimal;
 public class DataClient {
     public static void main(String[] args) {
         BeanFactory beanFactory = new AnnotationConfigApplicationContext(DataConfig.class);
-        EntityManagerFactory emf = beanFactory.getBean(EntityManagerFactory.class);
-
-        // em
-        EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
+        OrderRepository repository = beanFactory.getBean(OrderRepository.class);
 
         // em.persist - 영속화
         Order order = new Order("100", BigDecimal.TEN);
-        em.persist(order); // save의 내부에 보면 persist를 호출한다.
-
+        repository.save(order);
         System.out.println(order);
 
-        em.getTransaction().commit();
-        em.close();
+        Order order2 = new Order("100", BigDecimal.ONE);
+        repository.save(order2);
+        System.out.println(order2);
     }
 }
