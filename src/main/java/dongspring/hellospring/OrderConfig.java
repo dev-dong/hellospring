@@ -1,6 +1,7 @@
 package dongspring.hellospring;
 
-import dongspring.hellospring.data.OrderRepository;
+import dongspring.hellospring.data.JpaOrderRepository;
+import dongspring.hellospring.order.OrderRepository;
 import dongspring.hellospring.order.OrderService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,7 +13,7 @@ import org.springframework.orm.jpa.JpaTransactionManager;
 public class OrderConfig {
     @Bean
     public OrderRepository orderRepository() {
-        return new OrderRepository();
+        return new JpaOrderRepository();
     }
 
     @Bean

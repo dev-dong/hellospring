@@ -1,6 +1,5 @@
 package dongspring.hellospring;
 
-import dongspring.hellospring.data.OrderRepository;
 import jakarta.persistence.EntityManagerFactory;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.context.annotation.Bean;
