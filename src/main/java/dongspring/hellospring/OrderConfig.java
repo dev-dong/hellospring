@@ -3,6 +3,8 @@ package dongspring.hellospring;
 import dongspring.hellospring.data.JdbcOrderRepository;
 import dongspring.hellospring.order.OrderRepository;
 import dongspring.hellospring.order.OrderService;
+import dongspring.hellospring.order.OrderServiceImpl;
+import dongspring.hellospring.order.OrderServiceTxProxy;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -21,8 +23,7 @@ public class OrderConfig {
     @Bean
     public OrderService orderService(
             PlatformTransactionManager transactionManager,
-            OrderRepository orderRepository
-    ) {
-        return new OrderService(orderRepository, transactionManager);
+            OrderRepository orderRepository) {
+        return new OrderServiceTxProxy(new OrderServiceImpl(orderRepository), transactionManager);
     }
 }
